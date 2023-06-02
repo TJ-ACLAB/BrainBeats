@@ -1,0 +1,370 @@
+<LoginScreen>:
+    orientation: 'vertical'
+    padding: '30dp'
+    spacing: '30dp'
+
+    Image:
+        source: 'BrainBeats.png'
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "200dp"
+        allow_stretch: False
+        keep_ratio: True
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+
+    TextInput:
+        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+        size_hint_x: 0.8
+        id: username
+        multiline: False
+        font_size: 24
+        hint_text: 'Username'
+        size_hint_y: None
+        height: "50dp"
+
+
+    TextInput:
+        pos_hint: {'center_x': 0.5, 'center_y': 0.43}
+        size_hint_x: 0.8
+        id: password
+        password: True
+        multiline: False
+        font_size: 24
+        hint_text: 'Password'
+        size_hint_y: None
+        height: "50dp"
+
+
+    Label:
+        text: root.result
+        font_size:20
+        color : 0.7, 0.2, 0.2, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+
+
+
+    Button:
+        text: 'Login'
+        font_size: 24
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.30}
+        on_press: root.authenticate(username.text, password.text)
+
+    Button:
+        text: 'Sign Up'
+        font_size: 24
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.20}
+        on_press: app.root.current = 'signup'
+
+<SignUpScreen>:
+    orientation: 'vertical'
+    padding: '20dp'
+    spacing: '30dp'
+
+    TextInput:
+        id: new_username
+        size_hint_x: 0.8
+        hint_text: 'New Username'
+        multiline: False
+        font_size: 24
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.80}
+
+    TextInput:
+        id: new_password
+        size_hint_x: 0.8
+        hint_text: 'New Password'
+        multiline: False
+        font_size: 24
+        size_hint_y: None
+        height: "50dp"
+        password: True
+        pos_hint: {'center_x': 0.5, 'top': 0.68}
+
+    TextInput:
+        id: confirm_password
+        hint_text: 'Confirm Password'
+        size_hint_x: 0.8
+        multiline: False
+        font_size: 24
+        size_hint_y: None
+        height: "50dp"
+        password: True
+        pos_hint: {'center_x': 0.5, 'top': 0.56}
+
+    BoxLayout:
+        id: user_type_box
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: 50
+        spacing: 10
+        pos_hint: {'center_x': 0.5, 'top': 0.43}
+        size_hint_x: 0.8
+
+        Button:
+            id: user_type
+            text: 'User'
+            font_size: 24
+            size_hint: (0.4, None)
+            height: 50
+            background_color: root.colorUser
+            on_press: root.select_user_type()
+        Button:
+            id: tutor_type
+            text: 'Tutor'
+            font_size: 24
+            size_hint: (0.4, None)
+            height: 50
+            background_color: root.colorTutor
+            on_press: root.select_tutor_type()
+
+
+    Label:
+        text: root.result
+        font_size:20
+        color : 0.7, 0.2, 0.2, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.31}
+
+    Button:
+        text: 'Sign Up'
+        font_size: 24
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.27}
+        on_press: root.sign_up(new_username.text, new_password.text, confirm_password.text)
+
+    Button:
+        text: 'Back to Login'
+        font_size: 20
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.18}
+        on_press: app.root.current = 'login'
+
+<MainUserScreen>:
+
+    orientation: 'vertical'
+    padding: '20dp'
+    spacing: '10dp'
+
+    Button:
+        text: 'start recording'
+        font_size: 36
+        size_hint: 0.85, None
+        height: "200dp"
+        background_color: 0.8, 0.9, 0.8, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+        on_press: app.root.current = 'record'
+
+    Button:
+        text: 'view recording'
+        font_size: 24
+        size_hint: 0.85, None
+        height: "50dp"
+        background_color: 1, 0.9, 0.8, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
+        on_press: app.root.current = 'view'
+
+    Button:
+        text: 'Logout'
+        font_size: 24
+        height: "50dp"
+        size_hint: 0.7, None
+        pos_hint: {'center_x': 0.5, 'top': 0.25}
+        on_press: app.root.current = 'login'
+
+<MainTutorScreen>:
+
+    orientation: 'vertical'
+    padding: '20dp'
+    spacing: '10dp'
+
+    Button:
+        text: 'Add user'
+        font_size: 24
+        size_hint: 0.85, None
+        height: "100dp"
+        background_color: 0.8, 0.9, 0.8, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+        on_press: app.root.current = 'addUser'
+
+    Button:
+        text: 'view recording'
+        font_size: 24
+        size_hint: 0.85, None
+        height: "100dp"
+        background_color: 1, 0.9, 0.8, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+
+    Button:
+        text: 'Logout'
+        font_size: 24
+        height: 50
+        size_hint: 0.7, None
+        pos_hint: {'center_x': 0.5, 'top': 0.25}
+        on_press: app.root.current = 'login'
+
+<addUserScreen>:
+    orientation: 'vertical'
+    padding: '30dp'
+    spacing: '30dp'
+
+    TextInput:
+        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+        size_hint_x: 0.8
+        id: username
+        multiline: False
+        font_size: 24
+        hint_text: 'Username'
+        size_hint_y: None
+        height: "50dp"
+
+
+    TextInput:
+        pos_hint: {'center_x': 0.5, 'center_y': 0.43}
+        size_hint_x: 0.8
+        id: password
+        password: True
+        multiline: False
+        font_size: 24
+        hint_text: 'Password'
+        size_hint_y: None
+        height: "50dp"
+
+    Label:
+        text: root.result
+        font_size:20
+        color : root.color
+        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+
+    Button:
+        text: 'Add user'
+        font_size: 24
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.30}
+        on_press: root.verify(username.text, password.text)
+
+    Button:
+        text: 'return to main page'
+        font_size: 24
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.20}
+        on_press: app.root.current = 'mainTutor'
+
+<recordScreen>:
+    orientation: 'vertical'
+    padding: '30dp'
+    spacing: '30dp'
+
+    Image:
+        source: 'BrainBeats.png'
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "200dp"
+        allow_stretch: False
+        keep_ratio: True
+        pos_hint: {'center_x': 0.5, 'center_y': 0.90}
+
+
+    Label:
+        text: root.status
+        font_size:20
+        color: 0.3, 0.3, 0.3, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.82}
+
+    Label:
+        text: "Attention"
+        font_size:28
+        color: 0, 0, 0, 1
+        pos_hint: {'center_x': 0.28, 'center_y': 0.74}
+
+    Label:
+        text: "Meditation"
+        font_size:28
+        color: 0, 0, 0, 1
+        pos_hint: {'center_x': 0.72, 'center_y': 0.74}
+
+    Label:
+        text: root.attentionShown
+        font_size:60
+        color: 0, 0, 0, 1
+        pos_hint: {'center_x': 0.3, 'center_y': 0.66}
+
+    Label:
+        text: root.meditationShown
+        font_size:60
+        color: 0, 0, 0, 1
+        pos_hint: {'center_x': 0.7, 'center_y': 0.66}
+
+    Label:
+        text: root.action
+        font_size:20
+        color: root.colorAction
+        pos_hint: {'center_x': 0.5, 'center_y': 0.58}
+
+    BoxLayout:
+        id:box
+        size_hint_x:0.8
+        size_hint_y:0.4
+        pos_hint: {'center_x': 0.5, 'center_y': 0.36}
+
+
+
+    Button:
+        text: 'return to main page'
+        font_size: 24
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.15}
+        on_press: root.stopRecording()
+
+<viewScreen>
+
+    Image:
+        source: 'BrainBeats.png'
+        size_hint_x: 0.8
+        size_hint_y: None
+        height: "150dp"
+        allow_stretch: False
+        keep_ratio: True
+        pos_hint: {'center_x': 0.5, 'center_y': 0.93}
+
+    BoxLayout:
+        id:box1
+        size_hint_x:0.8
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
+
+    BoxLayout:
+        id:box2
+        size_hint_x:0.8
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.46}
+
+    BoxLayout:
+        id:box3
+        size_hint_x:0.8
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.23}
+
+    Button:
+        text: 'return to main page'
+        font_size: 24
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.10}
+        on_press: app.root.current = 'mainUser'
