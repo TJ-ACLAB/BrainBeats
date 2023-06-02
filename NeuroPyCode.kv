@@ -162,10 +162,10 @@
         height: "200dp"
         background_color: 0.8, 0.9, 0.8, 1
         pos_hint: {'center_x': 0.5, 'center_y': 0.65}
-        on_press: app.root.current = 'record'
+        on_press: root.startRecording()
 
     Button:
-        text: 'view recording'
+        text: 'view last recording'
         font_size: 24
         size_hint: 0.85, None
         height: "50dp"
@@ -188,21 +188,13 @@
     spacing: '10dp'
 
     Button:
-        text: 'Add user'
+        text: 'view last recording'
         font_size: 24
-        size_hint: 0.85, None
-        height: "100dp"
-        background_color: 0.8, 0.9, 0.8, 1
-        pos_hint: {'center_x': 0.5, 'center_y': 0.65}
-        on_press: app.root.current = 'addUser'
-
-    Button:
-        text: 'view recording'
-        font_size: 24
-        size_hint: 0.85, None
+        size_hint: 0.85, 0.35
         height: "100dp"
         background_color: 1, 0.9, 0.8, 1
-        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        on_press: app.root.current = 'viewTutor'
 
     Button:
         text: 'Logout'
@@ -218,7 +210,7 @@
     spacing: '30dp'
 
     TextInput:
-        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
         size_hint_x: 0.8
         id: username
         multiline: False
@@ -229,7 +221,7 @@
 
 
     TextInput:
-        pos_hint: {'center_x': 0.5, 'center_y': 0.43}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.50}
         size_hint_x: 0.8
         id: password
         password: True
@@ -243,7 +235,7 @@
         text: root.result
         font_size:20
         color : root.color
-        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
 
     Button:
         text: 'Add user'
@@ -251,17 +243,17 @@
         size_hint_x: 0.8
         size_hint_y: None
         height: "50dp"
-        pos_hint: {'center_x': 0.5, 'top': 0.30}
+        pos_hint: {'center_x': 0.5, 'top': 0.35}
         on_press: root.verify(username.text, password.text)
 
     Button:
-        text: 'return to main page'
+        text: 'return to login page'
         font_size: 24
         size_hint_x: 0.6
         size_hint_y: None
         height: "50dp"
-        pos_hint: {'center_x': 0.5, 'top': 0.20}
-        on_press: app.root.current = 'mainTutor'
+        pos_hint: {'center_x': 0.5, 'top': 0.25}
+        on_press: app.root.current = 'login'
 
 <recordScreen>:
     orientation: 'vertical'
@@ -332,33 +324,46 @@
         on_press: root.stopRecording()
 
 <viewScreen>
+    on_enter: root.readData()
+
+    Label:
+        text: root.result
+        font_size:18
+        color : 0.8, 0,0,1
+        pos_hint: {'center_x': 0.72, 'center_y': 0.89}
 
     Image:
         source: 'BrainBeats.png'
-        size_hint_x: 0.8
+        size_hint_x: 0.5
         size_hint_y: None
-        height: "150dp"
+        height: "200dp"
         allow_stretch: False
         keep_ratio: True
-        pos_hint: {'center_x': 0.5, 'center_y': 0.93}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+
+    Label:
+        text: "Last recording"
+        font_size:15
+        color: 0.3, 0.3, 0.3, 1
+        pos_hint: {'center_x': 0.33, 'center_y': 0.89}
 
     BoxLayout:
         id:box1
-        size_hint_x:0.8
+        size_hint_x:0.9
         size_hint_y:0.27
-        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
 
     BoxLayout:
         id:box2
-        size_hint_x:0.8
+        size_hint_x:0.9
         size_hint_y:0.27
-        pos_hint: {'center_x': 0.5, 'center_y': 0.46}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.49}
 
     BoxLayout:
         id:box3
-        size_hint_x:0.8
+        size_hint_x:0.9
         size_hint_y:0.27
-        pos_hint: {'center_x': 0.5, 'center_y': 0.23}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.24}
 
     Button:
         text: 'return to main page'
@@ -368,3 +373,55 @@
         height: "50dp"
         pos_hint: {'center_x': 0.5, 'top': 0.10}
         on_press: app.root.current = 'mainUser'
+
+
+<viewTutorScreen>
+    on_enter: root.readData()
+
+    Label:
+        text: root.result
+        font_size:18
+        color : 0.8, 0,0,1
+        pos_hint: {'center_x': 0.72, 'center_y': 0.89}
+
+    Image:
+        source: 'BrainBeats.png'
+        size_hint_x: 0.5
+        size_hint_y: None
+        height: "200dp"
+        allow_stretch: False
+        keep_ratio: True
+        pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+
+    Label:
+        text: "Last recording"
+        font_size:15
+        color: 0.3, 0.3, 0.3, 1
+        pos_hint: {'center_x': 0.33, 'center_y': 0.89}
+
+    BoxLayout:
+        id:box1
+        size_hint_x:0.9
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+
+    BoxLayout:
+        id:box2
+        size_hint_x:0.9
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.49}
+
+    BoxLayout:
+        id:box3
+        size_hint_x:0.9
+        size_hint_y:0.27
+        pos_hint: {'center_x': 0.5, 'center_y': 0.24}
+
+    Button:
+        text: 'return to main page'
+        font_size: 24
+        size_hint_x: 0.6
+        size_hint_y: None
+        height: "50dp"
+        pos_hint: {'center_x': 0.5, 'top': 0.10}
+        on_press: app.root.current = 'mainTutor'
